@@ -1,0 +1,8 @@
+{
+  "/nsapp-stations/v2": {
+    "target": "https://gateway.apiportal.ns.nl",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
