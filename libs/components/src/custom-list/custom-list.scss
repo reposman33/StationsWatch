@@ -3,15 +3,21 @@
 }
 
 .container {
+  border: #ccc 1px solid;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 00.2rem;
+  margin: 3rem;
   width: 30%;
 }
 
 .alphabet-nav {
+  background-color: #d5dfea;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  margin: auto 0;
 
   button {
     min-width: 32px;
@@ -23,8 +29,18 @@
 }
 
 .name-list {
+  background-color: #d5dfea;
   flex-grow: 1;
-  width: 100%;
+  width: max-content;
   height: 720px;
   border: 1px solid #ccc;
+
+  & .mdc-list-item {
+    &.mdc-list-item--with-one-line {
+      height: 28px;
+    }
+    &:nth-child(odd) {
+      background-color: #e8f0f7;
+    }
+  }
 }
