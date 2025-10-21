@@ -26,11 +26,5 @@
     margin-left: 2rem;
     padding: 1rem;
     box-shadow: $card-box-shadow;
-
-    & mat-card {
-      margin-bottom: 1rem;
-      height: 100%;
-      border-radius: 0
-    }
   }
 }

@@ -1,14 +1,14 @@
 import { Component, inject, ViewEncapsulation, OnInit, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CustomList } from '../../../../libs/components';
+import { StoringCard } from '../../../../libs/components';
 import { NsApiService } from 'libs/api';
 import { Station } from 'libs/models';
 import { Observable } from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  imports: [RouterModule, CustomList, MatCardModule],
+  imports: [RouterModule, CustomList, StoringCard],
   selector: 'ns-root',
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
