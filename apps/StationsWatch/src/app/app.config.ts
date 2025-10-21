@@ -7,6 +7,7 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { NS_STATIONS_ENDPOINT, OCP_APIM_SUBSCRIPTION_KEY } from './environments/.environment';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +23,6 @@ export const appConfig: ApplicationConfig = {
       provide: OCP_APIM_SUBSCRIPTION_KEY,
       useValue: OCP_APIM_SUBSCRIPTION_KEY,
     },
+    provideNativeDateAdapter()
   ],
 };

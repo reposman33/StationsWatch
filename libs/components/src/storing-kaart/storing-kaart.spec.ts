@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StoringCard }from './storing-card';
+import { StoringKaart }from './storing-kaart';
 
 describe('CustomList', () => {
-  let component: StoringCard;
-  let fixture: ComponentFixture<StoringCard>;
+  let component: StoringKaart;
+  let fixture: ComponentFixture<StoringKaart>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StoringCard],
+      imports: [StoringKaart],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StoringCard);
+    fixture = TestBed.createComponent(StoringKaart);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

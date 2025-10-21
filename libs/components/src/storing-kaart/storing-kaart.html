@@ -1,0 +1,30 @@
+<mat-card class="storing-card">
+  
+  <mat-card-header>
+    <mat-card-title>Station storing</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+
+    <mat-label>Datum</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <p>type storing</p>
+
+    <mat-radio-group class="storing-type-group">
+      <mat-radio-button value="Storing">Storing</mat-radio-button>
+      <mat-radio-button value="Informatie">Informatie</mat-radio-button>
+      <mat-radio-button value="Service">Service</mat-radio-button>
+    </mat-radio-group>
+
+    <p>Beschrijving</p>
+
+    <textarea matInput name="beschrijving" id="beschrijving" class="storing-beschrijving"></textarea>
+
+    <button mat-raised-button color="primary">Opslaan</button>
+
+  </mat-card-content>
+
+</mat-card>
