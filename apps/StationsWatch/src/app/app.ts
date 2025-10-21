@@ -5,9 +5,10 @@ import { NsApiService } from 'libs/api';
 import { Station } from 'libs/models';
 import { Observable } from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  imports: [RouterModule, CustomList],
+  imports: [RouterModule, CustomList, MatCardModule],
   selector: 'ns-root',
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
