@@ -8,10 +8,8 @@
   <cdk-virtual-scroll-viewport itemSize="48" class="name-list" [style.height.px]="720">
     <mat-list>
       @for(station of stations; track trackBycdCode()) {
-        <mat-list-item>
-          {{ station.naam }} 
-        </mat-list-item>
-    }
+      <mat-list-item> {{ station.naam }} </mat-list-item>
+      }
     </mat-list>
   </cdk-virtual-scroll-viewport>
 </div>

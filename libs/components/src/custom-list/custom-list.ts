@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, ViewChild, ViewEncapsulation, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewChild,
+  ViewEncapsulation,
+  OnInit,
+} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -12,21 +19,16 @@ import { Observable } from 'rxjs';
 type station = {
   naam: string;
   cdCode: number;
-}
+};
 
 @Component({
   selector: 'ns-custom-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    ScrollingModule,
-    MatListModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, ScrollingModule, MatListModule, MatButtonModule],
   templateUrl: './custom-list.html',
   styleUrls: ['./custom-list.scss'],
   encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomList implements OnInit {
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
@@ -34,29 +36,36 @@ export class CustomList implements OnInit {
   stations: Station[] = [];
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   letterIndexMap: { [letter: string]: number } = {};
-  private nsApiService = inject(NsApiService)
+  private nsApiService = inject(NsApiService);
 
   ngOnInit() {
     this.getStationData()
       .pipe(
-        map((data: StationData): Station[] => data.payload
-        .filter((station: StationUitgebreid): boolean => station.land === 'NL')
-        .map((station: StationUitgebreid): Station => ({ naam: station.namen.lang, cdCode: station.cdCode }))
+        map((data: StationData): Station[] =>
+          data.payload
+            .filter((station: StationUitgebreid): boolean => station.land === 'NL')
+            .map(
+              (station: StationUitgebreid): Station => ({
+                naam: station.namen.lang,
+                cdCode: station.cdCode,
+              })
+            )
         )
       )
       .subscribe((data: Station[]) => {
-        this.stations = data.slice()
-        .sort((a: Station, b: Station) =>
-          a.naam.localeCompare(b.naam, 'nl', { sensitivity: 'base' })
-        );
+        this.stations = data
+          .slice()
+          .sort((a: Station, b: Station) =>
+            a.naam.localeCompare(b.naam, 'nl', { sensitivity: 'base' })
+          );
         // build the index after sorting so it's based on the sorted list
         this.buildLetterIndexMap();
       });
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.scrollToLetter('A');
-    console.log("est123ddd")
+    console.log('est123ddd');
   }
 
   getStationData(): Observable<StationData> {
@@ -84,5 +93,4 @@ export class CustomList implements OnInit {
   protected trackBycdCode(index?: number, station?: Station): number {
     return station?.cdCode ?? -1;
   }
-
 }

@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CustomList } from '../../../../libs/components';
 
 @Component({
-  imports: [RouterModule],
+  imports: [RouterModule, CustomList],
   selector: 'ns-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',

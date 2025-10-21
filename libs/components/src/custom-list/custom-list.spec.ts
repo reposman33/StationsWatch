@@ -8,9 +8,8 @@ describe('CustomList', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomList]
-    })
-    .compileComponents();
+      imports: [CustomList],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CustomList);
     component = fixture.componentInstance;
