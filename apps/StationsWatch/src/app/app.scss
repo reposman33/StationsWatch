@@ -4,27 +4,26 @@
   border: 3px solid $container-border-color;
   border-radius: 2rem;
   display: flex;
-  height: max-content;
   margin: 3rem;
-  padding: 1rem;
+  padding: 3rem;
   box-shadow: $container-box-shadow;
   width: 85%;
 
   & .list {
-    border-radius: $card-border-radius;
-    flex: 0 0 30%;
+    border-radius: $card-left-border-radius;
+    flex: 0 0 29%;
     background-color: $card-background-color;
     box-shadow: $card-box-shadow;
-    height: 85%;
+    height: fit-content;
   }
-
+  
   & .card {
-    flex: 0 0 60%;
+    flex: 0 0 67%;
     border: $card-border;
     border-radius: $card-right-border-radius;
     background-color: $card-background-color;
+    height: fit-content;
     margin-left: 2rem;
-    padding: 1rem;
     box-shadow: $card-box-shadow;
   }
 }
