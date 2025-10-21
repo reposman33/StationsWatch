@@ -16,11 +16,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     {
       provide: NS_STATIONS_ENDPOINT,
-      useValue: NS_STATIONS_ENDPOINT
+      useValue: NS_STATIONS_ENDPOINT,
     },
     {
       provide: OCP_APIM_SUBSCRIPTION_KEY,
-      useValue: OCP_APIM_SUBSCRIPTION_KEY
-    }
+      useValue: OCP_APIM_SUBSCRIPTION_KEY,
+    },
   ],
 };

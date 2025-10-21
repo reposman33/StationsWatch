@@ -21,7 +21,7 @@
             "input": "/apps/StationsWatch/public"
           }
         ],
-        "styles": ["/apps/StationsWatch/src/styles.scss"]
+        "styles": ["apps/StationsWatch/src/styles.scss"]
       },
       "configurations": {
         "production": {
