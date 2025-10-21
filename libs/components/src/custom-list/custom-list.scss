@@ -17,6 +17,7 @@
 .alphabet-nav {
   background-color: $alphabet-nav-bg-color;
   display: flex;
+  height: 100%;
   flex-direction: column;
   border-radius: $left-border-radius;
 
@@ -32,8 +33,8 @@
 .name-list {
   background-color: $names-list-bg-color;
   flex-grow: 1;
+  height: 100%;
   width: max-content;
-  height: 720px;
   border: 1px solid #ccc;
 
   & .mdc-list-item {
