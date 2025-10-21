@@ -1,26 +1,36 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   ViewChild,
   ViewEncapsulation,
-  OnInit,
+  Input,
+  Signal,
+  signal,
+  effect,
 } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { NsApiService } from '../../../api';
-import { StationData, StationUitgebreid } from '../../../models';
 import { Station } from '../../../models';
-import { Observable } from 'rxjs';
 
+/**
+ * Description placeholder
+ *
+ * @typedef {station}
+ */
 type station = {
   naam: string;
   cdCode: number;
 };
 
+/**
+ * Description placeholder
+ *
+ * @export
+ * @class CustomList
+ * @typedef {CustomList}
+ */
 @Component({
   selector: 'ns-custom-list',
   standalone: true,
@@ -30,66 +40,74 @@ type station = {
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomList implements OnInit {
+export class CustomList {
+  /**
+   * Description placeholder
+   *
+   * @type {?CdkVirtualScrollViewport}
+   */
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
+  /**
+   * Description placeholder
+   *
+   * @type {!Signal<Station[]>}
+   */
+  @Input() stations!: Signal<Station[]>;
+  
+  /**
+   * een index om de VirtualScrollViewport te kunnen scrollen naar een letter
+   */
+  readonly stationsIndex = signal<Map<string, number>>(new Map());
 
-  stations: Station[] = [];
+  /**
+   * de buttons a-z om naar de 1e entry die begint met die letter in de lijst te scrollen
+   */
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  letterIndexMap: { [letter: string]: number } = {};
-  private nsApiService = inject(NsApiService);
 
-  ngOnInit() {
-    this.getStationData()
-      .pipe(
-        map((data: StationData): Station[] =>
-          data.payload
-            .filter((station: StationUitgebreid): boolean => station.land === 'NL')
-            .map(
-              (station: StationUitgebreid): Station => ({
-                naam: station.namen.lang,
-                cdCode: station.cdCode,
-              })
-            )
-        )
-      )
-      .subscribe((data: Station[]) => {
-        this.stations = data
-          .slice()
-          .sort((a: Station, b: Station) =>
-            a.naam.localeCompare(b.naam, 'nl', { sensitivity: 'base' })
-          );
-        // build the index after sorting so it's based on the sorted list
-        this.buildLetterIndexMap();
-      });
+  constructor(){
+    // gebruik effect om de index te bouwen zodra de asynchrone data aanwezig is - en niet ervoor
+    effect(() => {
+      const stations = this.stations()
+      this.buildstationsIndex(stations);
+    });
   }
 
-  ngAfterViewInit() {
-    this.scrollToLetter('A');
-    console.log('est123ddd');
-  }
-
-  getStationData(): Observable<StationData> {
-    return this.nsApiService.getStationsNamen();
-  }
-
-  buildLetterIndexMap() {
-    this.letterIndexMap = {};
-    for (let i = 0; i < this.stations.length; i++) {
-      const name = this.stations[i].naam;
-      const firstLetter = name.charAt(0).toUpperCase();
-      if (!(firstLetter in this.letterIndexMap)) {
-        this.letterIndexMap[firstLetter] = i;
+  /**
+   * Maak een index van de entries in de scroll lijst op basis van de 1e letter van de stationnaam
+   *
+   * @param {Station[]} stations 
+   */
+  buildstationsIndex(stations: Station[]) {
+    const index = new Map<string, number>();
+    stations.map((station: Station, i: number) => {
+      const firstLetter = station.naam.charAt(0).toUpperCase();
+      if (!index.has(firstLetter)) {
+        index.set(firstLetter, i);
       }
-    }
+    });
+    this.stationsIndex.set(index);
   }
 
+  /**
+   * scroll naar de 1e entry in de lijst die begint met de opgegeven letter
+   *
+   * @param {string} letter 
+   */
   scrollToLetter(letter: string) {
-    const index = this.letterIndexMap[letter];
+    const index = this.stationsIndex().get(letter);
     if (index !== undefined && this.viewport) {
       this.viewport.scrollToIndex(index, 'smooth');
     }
   }
 
+  /**
+   * trackBy functie voor de for loop in de template
+   *
+   * @protected
+   * @param {?number} [index] 
+   * @param {?Station} [station] 
+   * @returns {number} 
+   */
   protected trackBycdCode(index?: number, station?: Station): number {
     return station?.cdCode ?? -1;
   }
