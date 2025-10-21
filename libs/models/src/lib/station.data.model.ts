@@ -1,3 +1,5 @@
+export type Landcode = "NL" | "D" | "B" | "F" | "CH" | "A" | "I" | "S" | "PL" | "CZ" | "DK" | "D" | "GB" | "H";
+
 export type StationUitgebreid = {
 	"EVACode": string;
 	"UICCode": string;
@@ -8,7 +10,7 @@ export type StationUitgebreid = {
 	"heeftFaciliteiten": boolean;
 	"heeftReisassistentie": boolean;
 	"heeftVertrektijden": boolean;
-	"land": 'NL' | 'DE' | "B";
+	"land": Landcode;
 	"lat": number;
 	"lng": number;
 	"radius": number;
@@ -16,15 +18,15 @@ export type StationUitgebreid = {
 	"namen": {
 		"lang": string;
 		"middel": string;
-		"kort": string
+		"kort": string;
 	};
 	"synoniemen": string[];
 	"nearbyMeLocationId": {
 		"value": string;
-		"type": string
+		"type": string;
 	};
 	"sporen": {"spoorNummer": '1' | '2' | '3' | '4'}[]
-	"stationType": string
+	"stationType": string;
 }
 
 export type StationData = {
