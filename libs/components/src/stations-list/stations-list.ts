@@ -37,12 +37,12 @@ type station = {
   selector: 'ns-custom-list',
   standalone: true,
   imports: [CommonModule, ScrollingModule, MatListModule, MatButtonModule],
-  templateUrl: './custom-list.html',
-  styleUrls: ['./custom-list.scss'],
+  templateUrl: './stations-list.html',
+  styleUrls: ['./stations-list.scss'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomList {
+export class StationsList {
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
   @Input() stations!: Signal<Station[]>;
   @Output() stationNaamSelected: EventEmitter<Station | null> = new EventEmitter<Station | null>();

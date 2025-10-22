@@ -1,6 +1,6 @@
 import { Component, inject, ViewEncapsulation, OnInit, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CustomList } from '../../../../libs/components';
+import { StationsList } from '../../../../libs/components';
 import { StoringKaart } from '../../../../libs/components';
 import { NsApiService } from 'libs/api';
 import { Station, StationsStoring } from 'libs/models';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
-  imports: [RouterModule, CustomList, StoringKaart],
+  imports: [RouterModule, StationsList, StoringKaart],
   selector: 'ns-root',
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],

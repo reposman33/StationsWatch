@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import CustomList from './custom-list';
+import { StationsList } from './stations-list';
 
-describe('CustomList', () => {
-  let component: CustomList;
-  let fixture: ComponentFixture<CustomList>;
+describe('StationsList', () => {
+  let component: StationsList;
+  let fixture: ComponentFixture<StationsList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomList],
+      imports: [StationsList],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomList);
+    fixture = TestBed.createComponent(StationsList);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
