@@ -27,4 +27,16 @@
     margin-left: 2rem;
     box-shadow: $card-box-shadow;
   }
+  
+  & .ns-logo {
+    background-color: $ns-logo-bg-color;
+    border-radius: 50px;
+    height: 51px;
+    left: 53px;
+    padding: 0.3rem;
+    position: absolute;
+    top:53px;
+    width: 51px;
+  }
+
 }
