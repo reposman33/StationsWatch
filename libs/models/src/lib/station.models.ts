@@ -37,3 +37,11 @@ export type StationUitgebreid = {
 export type StationData = {
 	"payload": StationUitgebreid[];
 }
+
+export type StationsStoring = {
+  station: Station,
+  storingTitel: string;
+  storingDatum: Date;
+  storingType: string;
+  storingOmschrijving: string;
+}
