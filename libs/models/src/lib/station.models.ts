@@ -1,3 +1,8 @@
+export type Station = {
+  naam: string;
+  cdCode: number;
+}
+
 export type Landcode = "NL" | "D" | "B" | "F" | "CH" | "A" | "I" | "S" | "PL" | "CZ" | "DK" | "D" | "GB" | "H";
 
 export type StationUitgebreid = {

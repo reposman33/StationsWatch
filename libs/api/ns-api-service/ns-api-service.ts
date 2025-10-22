@@ -6,7 +6,7 @@ import {
 } from '../../../apps/StationsWatch/src/app/environments/.environment';
 import { Station, StationData, StationUitgebreid } from '../..//models';
 import { map, Observable } from 'rxjs';
-import { Landcode } from 'libs/models/src/lib/station.data.model';
+import { Landcode } from '../../models';
 
 @Injectable({
   providedIn: 'root',
