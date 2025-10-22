@@ -1,5 +1,5 @@
 
-## <span style="background-color: yellow; padding: 10px; width: 51px; height: 20px; border-radius: .5rem; marin-right:2rem;"> ![NS logo](https://www.ns.nl/fe-platform-static/nsdesign/3337250/images/nslogo.svg)</span> Stations watch
+## <span style="background-color: yellow; padding: 10px; width: 51px; height: 20px; border-radius: .5rem; margin-right:2rem;"> ![NS logo](https://www.ns.nl/fe-platform-static/nsdesign/3337250/images/nslogo.svg)</span> Stations watch
 
 StationsWatch is een applicatie om storingen op stations te registreren. Het bestaat uit 2 delen: een overzicht met 100+ nederlandse NS stations en een storingskaart. Klik op een station in het overzicht om de storingskaart in te vullen met:
 - titel van storing
