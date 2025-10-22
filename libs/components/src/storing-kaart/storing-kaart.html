@@ -23,7 +23,7 @@
       <div class="input-container-left">
         <div>
           <mat-label>Datum</mat-label>
-            <div>
+            <div class="storing-datum-container">
               <input
                 matInput [matDatepicker]="picker"
                 [disabled]="!selectedStation"
@@ -46,7 +46,7 @@
       </div>
       
       <div class="input-container-right">
-        <p>Beschrijving</p>
+        <mat-label>Beschrijving</mat-label>
         <textarea
           matInput name="beschrijving"
           id="beschrijving"

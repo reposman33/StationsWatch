@@ -1,13 +1,14 @@
 @use '../variables' as *;
 
 .horizontal-container {
-  border: 3px solid $container-border-color;
+  background-color: #d1d5db;
+  border: $container-border;
   border-radius: 2rem;
   display: flex;
   margin: 3rem;
   padding: 3rem;
   box-shadow: $container-box-shadow;
-  width: 85%;
+  width: 1150px;
 
   & .list {
     border-radius: $card-left-border-radius;
