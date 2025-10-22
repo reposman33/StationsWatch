@@ -5,7 +5,10 @@
   </div>
 
     <div class="card">
-      <ns-storing-kaart [selectedStation]="selectedStation"></ns-storing-kaart>
+      <ns-storing-kaart
+        [selectedStation]="selectedStation"
+        (stationsStoring)="onStationsStoring($event)"
+        [stationsStoringen]="alleStationsStoringen"></ns-storing-kaart>
     </div>
 
 </div>

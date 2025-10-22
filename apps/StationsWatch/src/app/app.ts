@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CustomList } from '../../../../libs/components';
 import { StoringKaart } from '../../../../libs/components';
 import { NsApiService } from 'libs/api';
-import { Station } from 'libs/models';
+import { Station, StationsStoring } from 'libs/models';
 import { Observable } from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
 
@@ -23,9 +23,14 @@ export class App {
   // omzetten naar signal om geen lifecycle methods te hoeven gebruiken in child component
   protected stations: Signal<Station[]> = toSignal(this.stations$, {initialValue:[]});
   protected selectedStation: Station | null= null;
+  protected alleStationsStoringen: StationsStoring[] = [];
 
   onStationSelected(station: Station | null) {
     console.log(`Geselecteerd station in App component: ${station ? station.naam : '-- geen --' }`);
     this.selectedStation = station || null;
+  }
+
+  onStationsStoring(stationsStoring: StationsStoring){
+    this.alleStationsStoringen.unshift(stationsStoring);
   }
 }

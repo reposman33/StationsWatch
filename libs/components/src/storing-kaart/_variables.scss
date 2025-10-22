@@ -4,4 +4,8 @@ $storing-card-bg-color: #f3f4f6;
 $storing-card-border-color: #f3f4f6;
 $storing-card-border: 1 px solid $storing-card-border-color;
 $storing-card-border-radius: 2rem;
+$storingen-list-bg-color: #cadcf0;
+$storingen-list-text-color: #ddd;
+$storingen-list-item-selected-bg-color: darken($storingen-list-bg-color, 20%);
+$storingen-list-item-selected-text-color: lighten($storingen-list-text-color, 20%);
 

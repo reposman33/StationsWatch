@@ -25,17 +25,15 @@ import { Station, StationsStoring } from 'libs/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoringKaart {
-  @Input('stationsStoringen') stationsStoringen: Station[] = [];
+  @Input('stationsStoringen') stationsStoringen: StationsStoring[] = [];
   @Input('selectedStation') selectedStation: Station | null = null;
   @Output('stationsStoring') stationsStoring: EventEmitter<StationsStoring> = new EventEmitter<StationsStoring>()
 
-  protected storingDatum: string = ''; 
+  protected storingDatum?: Date; 
   protected storingTitel: string = ''; 
   protected storingType: string = ''; 
   protected storingOmschrijving: string = '';
-
   protected message: string = '';
-
 
   opslaanStation(){
     if (this.selectedStation && this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {
@@ -51,8 +49,33 @@ export class StoringKaart {
       
       this.message = `De storing op station ${this.selectedStation.naam} is geregistreerd`;
 
+        this.selectedStation = null;
+        this.storingTitel = '';
+        this.storingDatum = undefined;
+        this.storingType = '';
+        this.storingOmschrijving = '';  
+
       this.selectedStation = null;
     }
   }
 
+    /**
+   * trackBy functie voor de for loop in de template
+   *
+   * @protected
+   * @param {?number} [index] 
+   * @param {?Station} [station] 
+   * @returns {number} 
+   */
+  protected trackBycdCode(index?: number, station?: StationsStoring): number {
+    return station?.station.cdCode ?? -1;
+  }
+
+  toonStationStoring(stationStoring: StationsStoring){
+    this.storingDatum = stationStoring.storingDatum;
+    this.storingTitel = stationStoring.storingTitel;
+    this.storingOmschrijving = stationStoring.storingOmschrijving;
+    this.storingType = stationStoring.storingType;
+    this.selectedStation = stationStoring.station;
+  }
 }
