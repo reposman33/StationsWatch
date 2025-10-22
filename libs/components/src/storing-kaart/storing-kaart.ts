@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { Station } from 'libs/models';
 
 @Component({
   selector: 'ns-storing-kaart',
@@ -21,4 +23,7 @@ import { MatListModule } from '@angular/material/list';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoringKaart {
+  @Input('stationsStoringen') stationsStoringen: Station[] = [];
+  @Input('selectedStation') selectedStation: Station | null= null;
+
 }

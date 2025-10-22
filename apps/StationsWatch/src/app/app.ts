@@ -22,8 +22,10 @@ export class App {
   private stations$: Observable<Station[]> = this.nsApiService.getStationsNamen() || [];
   // omzetten naar signal om geen lifecycle methods te hoeven gebruiken in child component
   protected stations: Signal<Station[]> = toSignal(this.stations$, {initialValue:[]});
+  protected selectedStation: Station | null= null;
 
   onStationSelected(station: Station | null) {
     console.log(`Geselecteerd station in App component: ${station ? station.naam : '-- geen --' }`);
+    this.selectedStation = station || null;
   }
 }
