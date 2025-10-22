@@ -9,11 +9,12 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'ns-storing-kaart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatCardModule, MatDatepickerModule, MatRadioModule],
+  imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatCardModule, MatDatepickerModule, MatRadioModule, MatListModule],
   templateUrl: './storing-kaart.html',
   styleUrls: ['./storing-kaart.scss'],
   encapsulation: ViewEncapsulation.Emulated,

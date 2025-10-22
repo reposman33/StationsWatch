@@ -5,19 +5,66 @@
 }
 
 .storing-card {
+  display: flex;
+  flex-direction: column;
   height: 720px;
   border-radius: $storing-card-right-border-radius;
 
-  & .storing-type-group {
+  .input-container {
+    margin: 1rem;
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 0.5rem;
+    gap: 10%;
+   
+    .input-container-left {
+      background-color: darken($storing-card-bg-color, 5%);
+      border: $storing-card-border;
+      border-radius: $storing-card-border-radius;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;;
+      width: 50%;
+
+      & .storing-type-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }      
+    }
+
+    .input-container-right {
+      background-color: darken($storing-card-bg-color, 5%);
+      border: $storing-card-border;
+      border-radius: $storing-card-border-radius;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;;
+      width: 50%;
+
+      & .storing-beschrijving {
+        margin-top: 1rem;
+        height: 800%;
+        width: 100%
+      }
+    }
+
+  }
+  .button-opslaan {
+    align-self: flex-end;
+    margin-right: 2rem;
+    width: 20%;
   }
 
-  & .storing-beschrijving {
-    margin-top: 1rem;
-    height: 40%;
-    width: 90%
+  .stations-list {
+    background-color: darken($storing-card-bg-color, 5%);
+    border: $storing-card-border;
+    border-radius: $storing-card-border-radius;
+    display: flex;
+    flex-direction: column;
+    height: 30%;;
+    margin: 2rem;;
+    padding: 1rem;;
   }
+
 }

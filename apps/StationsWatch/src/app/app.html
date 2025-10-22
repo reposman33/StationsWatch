@@ -1,7 +1,7 @@
 <div class="horizontal-container">
 
   <div class="list">
-    <ns-custom-list [stations]="stations"></ns-custom-list>
+    <ns-custom-list (stationNaamSelected)="onStationSelected($event)" [stations]="stations"></ns-custom-list>
   </div>
 
     <div class="card">

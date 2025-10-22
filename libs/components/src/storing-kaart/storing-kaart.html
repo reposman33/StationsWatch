@@ -6,25 +6,46 @@
   
   <mat-card-content>
 
-    <mat-label>Datum</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-
-    <p>type storing</p>
-
-    <mat-radio-group class="storing-type-group">
-      <mat-radio-button value="Storing">Storing</mat-radio-button>
-      <mat-radio-button value="Informatie">Informatie</mat-radio-button>
-      <mat-radio-button value="Service">Service</mat-radio-button>
-    </mat-radio-group>
-
-    <p>Beschrijving</p>
-
-    <textarea matInput name="beschrijving" id="beschrijving" class="storing-beschrijving"></textarea>
-
-    <button mat-raised-button color="primary">Opslaan</button>
-
+    <div class="input-container">
+      
+      <div class="input-container-left">
+        <div>
+          <mat-label>Datum</mat-label>
+          <div>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+        <mat-label>
+          <p>type storing</p>
+        </mat-label>
+        <mat-radio-group class="storing-type-group">
+          <mat-radio-button value="Storing">Storing</mat-radio-button>
+          <mat-radio-button value="Informatie">Informatie</mat-radio-button>
+          <mat-radio-button value="Service">Service</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+      <div class="input-container-right">
+        <p>Beschrijving</p>
+        <textarea matInput name="beschrijving" id="beschrijving" class="storing-beschrijving"></textarea>
+      </div>
+    
+    </div>    
+    
   </mat-card-content>
+  
+  <button mat-raised-button color="primary" class="button-opslaan">Opslaan</button>
 
+  <mat-card class="stations-list">
+    <mat-label>Defecte stations</mat-label>
+    
+    <mat-list>
+    
+      <mat-list-item></mat-list-item>
+    
+    </mat-list>
+  </mat-card>
+  
 </mat-card>
