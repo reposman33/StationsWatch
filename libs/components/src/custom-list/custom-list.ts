@@ -4,6 +4,8 @@ import {
   ViewChild,
   ViewEncapsulation,
   Input,
+  Output,
+  EventEmitter,
   Signal,
   signal,
   effect,
@@ -41,28 +43,16 @@ type station = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomList {
-  /**
-   * Description placeholder
-   *
-   * @type {?CdkVirtualScrollViewport}
-   */
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
-  /**
-   * Description placeholder
-   *
-   * @type {!Signal<Station[]>}
-   */
   @Input() stations!: Signal<Station[]>;
+  @Output() stationNaamSelected: EventEmitter<Station | null> = new EventEmitter<Station | null>();
   
-  /**
-   * een index om de VirtualScrollViewport te kunnen scrollen naar een letter
-   */
+  // een index om de VirtualScrollViewport te kunnen scrollen naar een letter
   readonly stationsIndex = signal<Map<string, number>>(new Map());
-
-  /**
-   * de buttons a-z om naar de 1e entry die begint met die letter in de lijst te scrollen
-   */
+  // de buttons a-z om naar de 1e entry die begint met die letter in de lijst te scrollen
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  // optie in de lijst met stations is geselecteerd
+  protected selectedLineIndex: number = -1;
 
   constructor(){
     // gebruik effect om de index te bouwen zodra de asynchrone data aanwezig is - en niet ervoor
@@ -110,5 +100,16 @@ export class CustomList {
    */
   protected trackBycdCode(index?: number, station?: Station): number {
     return station?.cdCode ?? -1;
+  }
+
+  selectStation(station: Station, index: number) {
+    this.selectedLineIndex = this.selectedLineIndex === -1 ? index :
+    this.selectedLineIndex === index ? -1 : index;
+ 
+    const payLoad = this.selectedLineIndex === index ? station : null;
+    this.stationNaamSelected.emit(payLoad);
+
+    console.log(`this.selectedLineIndex: ${this.selectedLineIndex}`);
+    console.log(`Station: ${station.naam}`);
   }
 }

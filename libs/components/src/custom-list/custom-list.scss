@@ -38,11 +38,19 @@
   border: 1px solid #ccc;
 
   & .mdc-list-item {
+
+    
     &.mdc-list-item--with-one-line {
       height: 28px;
+
+      &.selectedLine {
+        background-color: $station-list-item-selected-bg-color;
+      }
     }
     &:nth-child(odd) {
       background-color: #e8f0f7;
     }
   }
+  
 }
+

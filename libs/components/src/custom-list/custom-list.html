@@ -7,7 +7,11 @@
 
   <cdk-virtual-scroll-viewport itemSize="22" class="name-list" [style.height.px]="720">
     <mat-list>
-      <mat-list-item *cdkVirtualFor="let station of stations(); trackBy: trackBycdCode"> {{ station.naam }} </mat-list-item>
+      <mat-list-item
+      *cdkVirtualFor="let station of stations(); let i = index; trackBy: trackBycdCode"
+      (click)="selectStation(station, i)"
+      [ngClass]="{ 'selectedLine': selectedLineIndex === i }"
+      > {{ station.naam }} </mat-list-item>
     </mat-list>
   </cdk-virtual-scroll-viewport>
 </div>
