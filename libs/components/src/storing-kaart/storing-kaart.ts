@@ -1,7 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { Station } from 'libs/models';
+import { Station, StationsStoring } from 'libs/models';
 
 @Component({
   selector: 'ns-storing-kaart',
@@ -24,6 +26,33 @@ import { Station } from 'libs/models';
 })
 export class StoringKaart {
   @Input('stationsStoringen') stationsStoringen: Station[] = [];
-  @Input('selectedStation') selectedStation: Station | null= null;
+  @Input('selectedStation') selectedStation: Station | null = null;
+  @Output('stationsStoring') stationsStoring: EventEmitter<StationsStoring> = new EventEmitter<StationsStoring>()
+
+  protected storingDatum: string = ''; 
+  protected storingTitel: string = ''; 
+  protected storingType: string = ''; 
+  protected storingOmschrijving: string = '';
+
+  protected message: string = '';
+
+
+  opslaanStation(){
+    if (this.selectedStation && this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {
+      const stationsStoring = {
+        station: this.selectedStation,
+        storingTitel: this.storingTitel,
+        storingDatum: this.storingDatum,
+        storingType: this.storingType,
+        storingOmschrijving: this.storingOmschrijving  
+      }
+      
+      this.stationsStoring.emit(stationsStoring)
+      
+      this.message = `De storing op station ${this.selectedStation.naam} is geregistreerd`;
+
+      this.selectedStation = null;
+    }
+  }
 
 }
