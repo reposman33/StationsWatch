@@ -11,9 +11,11 @@
 
   <div class="storing-titel">
     <mat-label>Titel</mat-label>
-    <input [value]="storingTitel" matInput>
+    <input
+      [value]="storingTitel"
+      matInput [disabled]="!selectedStation"
+      (input)="storingTitel = $any($event.target).value">
   </div>
-  
   <mat-card-content>
 
     <div class="input-container">
@@ -21,16 +23,22 @@
       <div class="input-container-left">
         <div>
           <mat-label>Datum</mat-label>
-          <div>
-            <input matInput [matDatepicker]="picker" [disabled]="!selectedStation" [value]="storingDatum">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <div>
+              <input
+                matInput [matDatepicker]="picker"
+                [disabled]="!selectedStation"
+                [value]="storingDatum"
+                (dateChange)="storingDatum = $any($event.target).value">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
           </div>
-        </div>
+
         <mat-label>
           <p>type storing</p>
+        
         </mat-label>
-        <mat-radio-group class="storing-type-group"  [disabled]="!selectedStation" [value]="storingType">
+        <mat-radio-group class="storing-type-group"  [disabled]="!selectedStation" [value]="storingType" (input)="storingType = $any($event.target).value">
           <mat-radio-button value="Storing">Storing</mat-radio-button>
           <mat-radio-button value="Informatie">Informatie</mat-radio-button>
           <mat-radio-button value="Service">Service</mat-radio-button>
@@ -44,7 +52,8 @@
           id="beschrijving"
           class="storing-beschrijving"
           [disabled]="!selectedStation"
-           [value]="storingOmschrijving"></textarea>
+          [value]="storingOmschrijving"
+          (input)="storingOmschrijving = $any($event.target).value"></textarea>
       </div>
 
     </div>    
@@ -61,12 +70,14 @@
   </div>
 
 
-  <mat-card class="stations-list">
+  <mat-card class="storing-list-container">
     <mat-label>Station storingen</mat-label>
     
-    <mat-list>
+    <mat-list class="storing-list">
     
-      <mat-list-item></mat-list-item>
+      @for(stationStoring of stationsStoringen; track trackBycdCode()) {
+        <mat-list-item class="stationsStoringLine" (click)="toonStationStoring(stationStoring)">{{stationStoring.station.naam}} ({{stationStoring.station.cdCode}})</mat-list-item>
+      }
     
     </mat-list>
   </mat-card>
