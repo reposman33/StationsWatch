@@ -57,8 +57,7 @@ export class StationsList {
   constructor(){
     // gebruik effect om de index te bouwen zodra de asynchrone data aanwezig is - en niet ervoor
     effect(() => {
-      const stations = this.stations()
-      this.buildstationsIndex(stations);
+      this.buildstationsIndex(this.stations());
     });
   }
 

@@ -3,7 +3,10 @@
   alt="NS logo"
   class="ns-logo">
   <div class="list">
-    <ns-stations-list (stationNaamSelected)="onStationSelected($event)" [stations]="stations"></ns-stations-list>
+    <ns-stations-list
+      (stationNaamSelected)="onStationSelected($event)"
+      [stations]="stations">
+    </ns-stations-list>
   </div>
 
     <div class="card">
