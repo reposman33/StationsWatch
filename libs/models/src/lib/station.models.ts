@@ -39,6 +39,7 @@ export type StationData = {
 }
 
 export type StationsStoring = {
+	isBestaandeStoring: boolean;
   station: Station,
   storingTitel: string;
   storingDatum: Date;
