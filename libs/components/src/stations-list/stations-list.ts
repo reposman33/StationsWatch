@@ -34,7 +34,7 @@ type station = {
  * @typedef {CustomList}
  */
 @Component({
-  selector: 'ns-custom-list',
+  selector: 'ns-stations-list',
   standalone: true,
   imports: [CommonModule, ScrollingModule, MatListModule, MatButtonModule],
   templateUrl: './stations-list.html',
