@@ -71,7 +71,8 @@ export class StoringKaart {
     return station?.station.cdCode ?? -1;
   }
 
-  toonStationStoring(stationStoring: StationsStoring){
+  bewerkStationStoring(stationStoring: StationsStoring){
+    this.isBestaandeStoring = true
     this.storingDatum = stationStoring.storingDatum;
     this.storingTitel = stationStoring.storingTitel;
     this.storingOmschrijving = stationStoring.storingOmschrijving;

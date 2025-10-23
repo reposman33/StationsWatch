@@ -76,7 +76,11 @@
     <mat-list class="storing-list">
     
       @for(stationStoring of stationsStoringen; track trackBycdCode()) {
-        <mat-list-item class="stationsStoringLine" (click)="toonStationStoring(stationStoring)">{{stationStoring.station.naam}} ({{stationStoring.station.cdCode}})</mat-list-item>
+        <mat-list-item
+          class="stationsStoringLine"
+          (click)="bewerkStationStoring(stationStoring)">
+            {{stationStoring.station.naam}} cdCode: {{stationStoring.station.cdCode}}
+          </mat-list-item>
       }
     
     </mat-list>
