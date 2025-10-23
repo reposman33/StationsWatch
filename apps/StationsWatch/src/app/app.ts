@@ -31,6 +31,11 @@ export class App {
   }
 
   onStationsStoring(stationsStoring: StationsStoring){
+   if (!stationsStoring.isBestaandeStoring) {
     this.alleStationsStoringen.unshift(stationsStoring);
+  } else {
+    // muteer bestaande object
+    this.alleStationsStoringen = this.alleStationsStoringen.map(station => station.station.cdCode === stationsStoring.station.cdCode ? stationsStoring : station);
   }
+ }
 }
