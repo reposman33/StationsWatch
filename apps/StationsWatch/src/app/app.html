@@ -4,8 +4,8 @@
   class="ns-logo">
   <div class="list">
     <ns-stations-list
-      (stationNaamSelected)="onStationSelected($event)"
-      [stations]="stations">
+      (stationSelected)="onStationSelected($event)"
+      [stations]="stationsData()">
     </ns-stations-list>
   </div>
 

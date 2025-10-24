@@ -3,10 +3,9 @@ import {
   Component,
   ViewChild,
   ViewEncapsulation,
-  Input,
+  input,
   Output,
   EventEmitter,
-  Signal,
   signal,
   effect,
 } from '@angular/core';
@@ -43,6 +42,7 @@ type station = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationsList {
+  readonly stations = input([] as Station[]);
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
   @Input() stations!: Signal<Station[]>;
   @Output() stationNaamSelected: EventEmitter<Station | null> = new EventEmitter<Station | null>();
