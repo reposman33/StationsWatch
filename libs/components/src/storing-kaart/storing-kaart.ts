@@ -38,34 +38,38 @@ export class StoringKaart {
   protected message: string = '';
 
   opslaanStation(){
-    if (this.selectedStation && this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {
-      const stationsStoring = {
-        station: this.selectedStation,
+    if (this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {
+
+      const stationsStoring: StationsStoring = {
+        isNieuw: this.isNieuweStoring,
+        station: this.selectedStation(),
         storingTitel: this.storingTitel,
         storingDatum: this.storingDatum,
         storingType: this.storingType,
         storingOmschrijving: this.storingOmschrijving  
       }
-      
-      this.stationsStoring.emit(stationsStoring)
-      
-      this.message = `De storing op station ${this.selectedStation.naam} is geregistreerd`;
+    
+      // wijzig bestaand station in bestaande lijst of voeg nieuw toe
+      if(this.isNieuweStoring) {
+        this.stationsStoringen.unshift(stationsStoring);
+      } else {
+        this.stationsStoringen = this.stationsStoringen.map((bestaandeStationStoring: StationsStoring): StationsStoring => 
+          bestaandeStationStoring.station.naam !== stationsStoring.station.naam ? bestaandeStationStoring : stationsStoring 
+        )
+      }
+    } else {
+      console.log('niet alle velden in het storingsformulier zijn ingevuld');
 
-        this.selectedStation = null;
-        this.storingTitel = '';
-        this.storingDatum = undefined;
-        this.storingType = '';
-        this.storingOmschrijving = '';  
-
-      this.selectedStation = null;
     }
+
+    this.message = `De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`;
+    this.leegInputVelden();
   }
 
     /**
    * trackBy functie voor de for loop in de template
    *
    * @protected
-   * @param {?number} [index] 
    * @param {?Station} [station] 
    * @returns {number} 
    */
