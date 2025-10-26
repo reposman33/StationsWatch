@@ -1,9 +1,9 @@
-import { Component, inject, ViewEncapsulation, OnInit, Signal } from '@angular/core';
+import { Component, inject, ViewEncapsulation, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StationsList } from '../../../../libs/components';
 import { StoringKaart } from '../../../../libs/components';
 import { NsApiService } from 'libs/api';
-import { Station, StationsStoring } from 'libs/models';
+import { Station } from 'libs/models';
 import { Observable } from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
 
@@ -16,26 +16,19 @@ import { toSignal} from '@angular/core/rxjs-interop';
   standalone: true,
 })
 export class App {
-  protected title = 'StationsWatch';
   private nsApiService = inject(NsApiService)
-  // data ophalen doro ns-api service;
+
+  // alle NL stations opvragen van ns-api service;
   private stations$: Observable<Station[]> = this.nsApiService.getStationsNamen() || [];
   // omzetten naar signal om geen lifecycle methods te hoeven gebruiken in child component
-  protected stations: Signal<Station[]> = toSignal(this.stations$, {initialValue:[]});
-  protected selectedStation: Station | null= null;
-  protected alleStationsStoringen: StationsStoring[] = [];
+  protected stationsData: Signal<Station[]> = toSignal(this.stations$, {initialValue:[]});
+  // communiceer geselecteerde station naar storingKaart component
+  protected selectedStation: Station = {naam:'', cdCode: 0};
 
-  onStationSelected(station: Station | null) {
-    console.log(`Geselecteerd station in App component: ${station ? station.naam : '-- geen --' }`);
-    this.selectedStation = station || null;
+  protected title = 'StationsWatch';
+
+  onStationSelected(station: Station) {
+    this.selectedStation = station;
   }
 
-  onStationsStoring(stationsStoring: StationsStoring){
-   if (!stationsStoring.isBestaandeStoring) {
-    this.alleStationsStoringen.unshift(stationsStoring);
-  } else {
-    // muteer bestaande object
-    this.alleStationsStoringen = this.alleStationsStoringen.map(station => station.station.cdCode === stationsStoring.station.cdCode ? stationsStoring : station);
-  }
- }
 }
