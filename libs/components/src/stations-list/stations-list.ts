@@ -66,7 +66,7 @@ export class StationsList {
    *
    * @param {Station[]} stations 
    */
-  buildstationsIndex(stations: Station[]) {
+  buildstationsIndex(stations: Station[] | []) {
     const index = new Map<string, number>();
     stations.map((station: Station, i: number) => {
       const firstLetter = station.naam.charAt(0).toUpperCase();
@@ -89,20 +89,13 @@ export class StationsList {
     }
   }
 
-  /**
-   * trackBy functie voor de for loop in de template
-   *
-   * @protected
-   * @param {?number} [index] 
-   * @param {?Station} [station] 
-   * @returns {number} 
-   */
-  protected trackBycdCode(index?: number, station?: Station): number {
-    return station?.cdCode ?? -1;
+  protected trackBycdCode(index: number, station: Station): number {
+    return station.cdCode;
   }
 
   selectStation(station: Station, index: number) {
     this.selectedLineIndex = index;
     this.nsApiService.selectStation(station)
   }
+
 }
