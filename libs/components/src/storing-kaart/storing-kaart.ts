@@ -69,16 +69,28 @@ export class StoringKaart {
    * @param {?Station} [station] 
    * @returns {number} 
    */
-  protected trackBycdCode(index?: number, station?: StationsStoring): number {
-    return station?.station.cdCode ?? -1;
+  
+  protected trackBycdCode(station: StationsStoring): number {
+    return station.station.cdCode;
+  }
+  
+  toonGeselecteerdStation(index: number) {
+    this.selectedLineIndex = index;
+    this.isNieuweStoring = false;
+    this.selectedStation.set(this.stationsStoringen[index].station);
+    this.storingDatum = this.stationsStoringen[index].storingDatum;
+    this.storingTitel = this.stationsStoringen[index].storingTitel;
+    this.storingType = this.stationsStoringen[index].storingType;
+    this.storingOmschrijving = this.stationsStoringen[index].storingOmschrijving;
   }
 
-  bewerkStationStoring(stationStoring: StationsStoring){
-    this.isBestaandeStoring = true
-    this.storingDatum = stationStoring.storingDatum;
-    this.storingTitel = stationStoring.storingTitel;
-    this.storingOmschrijving = stationStoring.storingOmschrijving;
-    this.storingType = stationStoring.storingType;
-    this.selectedStation = stationStoring.station;
+  leegInputVelden() {
+    this.selectedStation = this.selectedStation;
+    this.storingTitel = '';
+    this.storingDatum = undefined;
+    this.storingType = '';
+    this.storingOmschrijving = '';
+    this.isNieuweStoring = true;
   }
+
 }
