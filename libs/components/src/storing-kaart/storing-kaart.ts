@@ -25,9 +25,11 @@ import { Station, StationsStoring } from 'libs/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoringKaart {
-  @Input('stationsStoringen') stationsStoringen: StationsStoring[] = [];
-  @Input('selectedStation') selectedStation: Station | null = null;
-  @Output('stationsStoring') stationsStoring: EventEmitter<StationsStoring> = new EventEmitter<StationsStoring>()
+  public inputStation = input<Station>({naam: '', cdCode: 0}, {alias: 'selectedStation'});
+  protected selectedStation: Station = {naam: '', cdCode: 0}
+
+  protected stationsStoringen: StationsStoring[] = [];
+  protected isNieuweStoring: boolean = true;
 
   protected storingDatum?: Date; 
   protected storingTitel: string = ''; 
