@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
   ViewEncapsulation,
+  inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { Station, StationsStoring } from 'libs/models';
+import { Station, StationsStoring } from '../../../models';
+import { NsApiService } from '../../../api';
 
 @Component({
   selector: 'ns-storing-kaart',
@@ -25,17 +25,32 @@ import { Station, StationsStoring } from 'libs/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoringKaart {
-  public inputStation = input<Station>({naam: '', cdCode: 0}, {alias: 'selectedStation'});
-  protected selectedStation: Station = {naam: '', cdCode: 0}
+  protected nsApiService = inject(NsApiService)
+  protected selectedStation = signal<Station>({naam: '', cdCode: 0})
 
   protected stationsStoringen: StationsStoring[] = [];
   protected isNieuweStoring: boolean = true;
 
-  protected storingDatum?: Date; 
+  protected storingDatum?: Date;
   protected storingTitel: string = ''; 
   protected storingType: string = ''; 
   protected storingOmschrijving: string = '';
+
   protected message: string = '';
+  protected selectedLineIndex = -1;
+
+  
+  constructor() {
+    this.nsApiService.nsStationsLijstSubject.subscribe((selectedStation: Station) => this.onStationSelected(selectedStation))
+  }
+
+  onStationSelected(selectedStation: Station){
+      this.selectedStation.set(selectedStation);
+      console.log('selectedStation:', selectedStation)
+      // toon station als het al een storing heeft en anders maak het formulier leeg
+      const stationsIndex = this.stationsStoringen.findIndex((storing: StationsStoring): boolean => storing.station.cdCode === this.selectedStation().cdCode);
+      stationsIndex > -1 ? this.toonGeselecteerdStation(stationsIndex) : this.leegInputVelden()
+  }
 
   opslaanStation(){
     if (this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {

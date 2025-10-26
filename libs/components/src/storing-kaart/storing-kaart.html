@@ -3,8 +3,11 @@
   <mat-card-header>
     <mat-card-title>
       Station storing
-      @if(selectedStation.naam.length) {
-        in {{selectedStation.naam}}
+      @if(selectedStation().naam.length) {
+        in {{selectedStation().naam}}
+      }
+      @if(!isNieuweStoring && selectedStation().naam.length ) {
+        <span> MUTATIE</span>
       }
     </mat-card-title>
   </mat-card-header>
@@ -13,7 +16,7 @@
     <mat-label>Titel</mat-label>
     <input
       [value]="storingTitel"
-      matInput [disabled]="!selectedStation.naam.length"
+      matInput [disabled]="!selectedStation().naam.length"
       (input)="storingTitel = $any($event.target).value">
   </div>
   <mat-card-content>
@@ -26,7 +29,7 @@
             <div class="storing-datum-container">
               <input
                 matInput [matDatepicker]="picker"
-                [disabled]="!selectedStation.naam.length"
+                [disabled]="!selectedStation().naam.length"
                 [value]="storingDatum"
                 (dateChange)="storingDatum = $any($event.target).value">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -37,7 +40,7 @@
         <mat-label>
           <p>type storing</p>
         </mat-label>
-        <mat-radio-group class="storing-type-group"  [disabled]="!selectedStation.naam.length" [value]="storingType" (input)="storingType = $any($event.target).value">
+        <mat-radio-group class="storing-type-group"  [disabled]="!selectedStation().naam.length" [value]="storingType" (input)="storingType = $any($event.target).value">
           <mat-radio-button value="Storing">Storing</mat-radio-button>
           <mat-radio-button value="Informatie">Informatie</mat-radio-button>
           <mat-radio-button value="Service">Service</mat-radio-button>
@@ -50,7 +53,7 @@
           matInput name="beschrijving"
           id="beschrijving"
           class="storing-beschrijving"
-          [disabled]="!selectedStation.naam.length"
+          [disabled]="!selectedStation().naam.length"
           [value]="storingOmschrijving"
           (input)="storingOmschrijving = $any($event.target).value"></textarea>
       </div>
@@ -63,9 +66,9 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="!selectedStation.naam.length"
+      [disabled]="!selectedStation().naam.length"
       (click)="opslaanStation()">Opslaan</button>
-    <mat-label>{{message}}</mat-label>
+    <mat-hint>{{message}}</mat-hint>
   </div>
 
 

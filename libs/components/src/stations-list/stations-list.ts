@@ -4,16 +4,16 @@ import {
   ViewChild,
   ViewEncapsulation,
   input,
-  Output,
-  EventEmitter,
   signal,
   effect,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { Station } from '../../../models';
+import { NsApiService } from '../../../api';
 
 /**
  * Description placeholder
@@ -44,8 +44,8 @@ type station = {
 export class StationsList {
   readonly stations = input([] as Station[]);
   @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
-  @Input() stations!: Signal<Station[]>;
-  @Output() stationNaamSelected: EventEmitter<Station | null> = new EventEmitter<Station | null>();
+
+  nsApiService = inject(NsApiService);
   
   // een index om de VirtualScrollViewport te kunnen scrollen naar een letter
   readonly stationsIndex = signal<Map<string, number>>(new Map());
@@ -102,13 +102,7 @@ export class StationsList {
   }
 
   selectStation(station: Station, index: number) {
-    this.selectedLineIndex = this.selectedLineIndex === -1 ? index :
-    this.selectedLineIndex === index ? -1 : index;
- 
-    const payLoad = this.selectedLineIndex === index ? station : null;
-    this.stationNaamSelected.emit(payLoad);
-
-    console.log(`this.selectedLineIndex: ${this.selectedLineIndex}`);
-    console.log(`Station: ${station.naam}`);
+    this.selectedLineIndex = index;
+    this.nsApiService.selectStation(station)
   }
 }

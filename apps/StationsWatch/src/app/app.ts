@@ -27,8 +27,4 @@ export class App {
 
   protected title = 'StationsWatch';
 
-  onStationSelected(station: Station) {
-    this.selectedStation = station;
-  }
-
 }
