@@ -1,6 +1,8 @@
+@use 'sass:color';
+
 $left-border-radius: 2rem 0 0 2rem;
 $alphabet-nav-bg-color: #d5dfea;
 $names-list-bg-color: #cadcf0;
 $names-list-text-color: #ddd;
-$station-list-item-selected-bg-color: darken($names-list-bg-color, 20%);
-$station-list-item-selected-text-color: lighten($names-list-text-color, 20%);
+$station-list-item-selected-bg-color: color.adjust($names-list-bg-color, $lightness: -20%);
+$station-list-item-selected-text-color: color.adjust($names-list-text-color, $lightness: 20%);
