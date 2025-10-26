@@ -77,10 +77,10 @@
     
     <mat-list class="storing-list">
     
-      @for(stationStoring of stationsStoringen; track trackBycdCode()) {
+      @for(stationStoring of stationsStoringen; let i = $index; track trackBycdCode(stationStoring)) {
         <mat-list-item
-          class="stationsStoringLine"
-          (click)="bewerkStationStoring(stationStoring)">
+          [ngClass]="{ 'selectedLine': selectedLineIndex === i }"
+          (click)="toonGeselecteerdStation(i)">
             {{stationStoring.station.naam}} cdCode: {{stationStoring.station.cdCode}}
           </mat-list-item>
       }
