@@ -14,12 +14,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { Station, StationsStoring } from '../../../models';
 import { NsApiService } from '../../../api';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators,  } from '@angular/forms';
 
 @Component({
   selector: 'ns-storing-kaart',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatCardModule, MatDatepickerModule, MatRadioModule, MatListModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatRadioModule,
+    MatListModule  ],
   templateUrl: './storing-kaart.html',
   styleUrls: ['./storing-kaart.scss'],
   encapsulation: ViewEncapsulation.Emulated,
@@ -41,6 +50,8 @@ export class StoringKaart {
     type: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
     beschrijving: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]})
   })
+
+  private matSnackBar = inject(MatSnackBar)
   
   constructor() {
     this.nsApiService.nsStationsLijstSubject.subscribe((selectedStation: Station) => this.onStationSelected(selectedStation))
@@ -71,11 +82,15 @@ export class StoringKaart {
           bestaandeStationStoring.station.naam !== stationsStoring.station.naam ? bestaandeStationStoring : stationsStoring 
         )
       }
-    } else {
-      console.log('niet alle velden in het storingsformulier zijn ingevuld');
     }
 
-    this.message = `De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`;
+    this.matSnackBar.open(`De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`,
+      '',
+      {
+        duration: 4000
+      }
+    )
+  
     this.leegInputVelden();
   }
 
