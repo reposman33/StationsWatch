@@ -42,7 +42,7 @@ export type StationsStoring = {
 	isNieuw: boolean,
   station: Station,
   storingTitel: string;
-  storingDatum: Date;
+  storingDatum: Date | null;
   storingType: string;
   storingOmschrijving: string;
 }

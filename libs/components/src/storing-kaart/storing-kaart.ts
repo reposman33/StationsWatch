@@ -14,11 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { Station, StationsStoring } from '../../../models';
 import { NsApiService } from '../../../api';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ns-storing-kaart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatCardModule, MatDatepickerModule, MatRadioModule, MatListModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatCardModule, MatDatepickerModule, MatRadioModule, MatListModule],
   templateUrl: './storing-kaart.html',
   styleUrls: ['./storing-kaart.scss'],
   encapsulation: ViewEncapsulation.Emulated,
@@ -31,14 +32,15 @@ export class StoringKaart {
   protected stationsStoringen: StationsStoring[] = [];
   protected isNieuweStoring: boolean = true;
 
-  protected storingDatum?: Date;
-  protected storingTitel: string = ''; 
-  protected storingType: string = ''; 
-  protected storingOmschrijving: string = '';
-
   protected message: string = '';
   protected selectedLineIndex = -1;
 
+  protected storingsForm = new FormGroup({
+    titel: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]}),
+    datum: new FormControl<Date | null>(null, {validators: [Validators.required]}),
+    type: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
+    beschrijving: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.minLength(3)]})
+  })
   
   constructor() {
     this.nsApiService.nsStationsLijstSubject.subscribe((selectedStation: Station) => this.onStationSelected(selectedStation))
@@ -46,24 +48,21 @@ export class StoringKaart {
 
   onStationSelected(selectedStation: Station){
       this.selectedStation.set(selectedStation);
-      console.log('selectedStation:', selectedStation)
       // toon station als het al een storing heeft en anders maak het formulier leeg
       const stationsIndex = this.stationsStoringen.findIndex((storing: StationsStoring): boolean => storing.station.cdCode === this.selectedStation().cdCode);
       stationsIndex > -1 ? this.toonGeselecteerdStation(stationsIndex) : this.leegInputVelden()
   }
 
   opslaanStation(){
-    if (this.storingTitel.length && this.storingDatum && this.storingOmschrijving.length && this.storingType.length) {
-
+    if (this.storingsForm.valid) {
       const stationsStoring: StationsStoring = {
         isNieuw: this.isNieuweStoring,
         station: this.selectedStation(),
-        storingTitel: this.storingTitel,
-        storingDatum: this.storingDatum,
-        storingType: this.storingType,
-        storingOmschrijving: this.storingOmschrijving  
-      }
-    
+        storingTitel: this.storingsForm.controls.titel.value,
+        storingDatum: this.storingsForm.controls.datum.value,
+        storingType: this.storingsForm.controls.type.value,
+        storingOmschrijving: this.storingsForm.controls.beschrijving.value  
+      }    
       // wijzig bestaand station in bestaande lijst of voeg nieuw toe
       if(this.isNieuweStoring) {
         this.stationsStoringen.unshift(stationsStoring);
@@ -74,21 +73,12 @@ export class StoringKaart {
       }
     } else {
       console.log('niet alle velden in het storingsformulier zijn ingevuld');
-
     }
 
     this.message = `De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`;
     this.leegInputVelden();
   }
 
-    /**
-   * trackBy functie voor de for loop in de template
-   *
-   * @protected
-   * @param {?Station} [station] 
-   * @returns {number} 
-   */
-  
   protected trackBycdCode(station: StationsStoring): number {
     return station.station.cdCode;
   }
@@ -97,18 +87,17 @@ export class StoringKaart {
     this.selectedLineIndex = index;
     this.isNieuweStoring = false;
     this.selectedStation.set(this.stationsStoringen[index].station);
-    this.storingDatum = this.stationsStoringen[index].storingDatum;
-    this.storingTitel = this.stationsStoringen[index].storingTitel;
-    this.storingType = this.stationsStoringen[index].storingType;
-    this.storingOmschrijving = this.stationsStoringen[index].storingOmschrijving;
+    this.storingsForm.setValue({
+      titel: this.stationsStoringen[index].storingTitel,
+      datum: this.stationsStoringen[index].storingDatum,
+      type: this.stationsStoringen[index].storingType,
+      beschrijving: this.stationsStoringen[index].storingOmschrijving
+    })
   }
 
   leegInputVelden() {
-    this.selectedStation = this.selectedStation;
-    this.storingTitel = '';
-    this.storingDatum = undefined;
-    this.storingType = '';
-    this.storingOmschrijving = '';
+    this.storingsForm.reset()
+    this.selectedLineIndex = -1
     this.isNieuweStoring = true;
   }
 

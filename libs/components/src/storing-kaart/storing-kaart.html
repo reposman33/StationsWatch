@@ -6,70 +6,68 @@
       @if(selectedStation().naam.length) {
         in {{selectedStation().naam}}
       }
-      @if(!isNieuweStoring && selectedStation().naam.length ) {
+      @if(!isNieuweStoring && selectedLineIndex > -1 ) {
         <span> MUTATIE</span>
       }
     </mat-card-title>
   </mat-card-header>
 
-  <div class="storing-titel">
-    <mat-label>Titel</mat-label>
-    <input
-      [value]="storingTitel"
-      matInput [disabled]="!selectedStation().naam.length"
-      (input)="storingTitel = $any($event.target).value">
-  </div>
-  <mat-card-content>
 
-    <div class="input-container">
-      
-      <div class="input-container-left">
-        <div>
-          <mat-label>Datum</mat-label>
-            <div class="storing-datum-container">
-              <input
-                matInput [matDatepicker]="picker"
-                [disabled]="!selectedStation().naam.length"
-                [value]="storingDatum"
-                (dateChange)="storingDatum = $any($event.target).value">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </div>
-          </div>
-
-        <mat-label>
-          <p>type storing</p>
-        </mat-label>
-        <mat-radio-group class="storing-type-group"  [disabled]="!selectedStation().naam.length" [value]="storingType" (input)="storingType = $any($event.target).value">
-          <mat-radio-button value="Storing">Storing</mat-radio-button>
-          <mat-radio-button value="Informatie">Informatie</mat-radio-button>
-          <mat-radio-button value="Service">Service</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      
-      <div class="input-container-right">
-        <mat-label>Beschrijving</mat-label>
-        <textarea
-          matInput name="beschrijving"
-          id="beschrijving"
-          class="storing-beschrijving"
-          [disabled]="!selectedStation().naam.length"
-          [value]="storingOmschrijving"
-          (input)="storingOmschrijving = $any($event.target).value"></textarea>
-      </div>
-
-    </div>    
+  <form [formGroup]="storingsForm" (ngSubmit)="opslaanStation()">
+    <div class="storing-titel">
+      <mat-label>Titel</mat-label>
+      <input
+        matInput
+        formControlName="titel">
+    </div>
+    <mat-card-content>
+      <div class="input-container">
     
-  </mat-card-content>
-  
-  <div class="button-opslaan-container">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!selectedStation().naam.length"
-      (click)="opslaanStation()">Opslaan</button>
-    <mat-hint>{{message}}</mat-hint>
-  </div>
+        <div class="input-container-left">
+          <div>
+            <mat-label>Datum</mat-label>
+              <div class="storing-datum-container">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="datum">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+            </div>
+          <mat-label>
+            <p>type storing</p>
+          </mat-label>
+          <mat-radio-group
+            class="storing-type-group"
+            formControlName="type">
+            <mat-radio-button value="Storing">Storing</mat-radio-button>
+            <mat-radio-button value="Informatie">Informatie</mat-radio-button>
+            <mat-radio-button value="Service">Service</mat-radio-button>
+          </mat-radio-group>
+        </div>
+    
+        <div class="input-container-right">
+          <mat-label>Beschrijving</mat-label>
+          <textarea
+            matInput
+            class="storing-beschrijving"
+            formControlName="beschrijving"></textarea>
+        </div>
+      </div>
+    
+    </mat-card-content>
+    
+    <div class="button-opslaan-container">
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="storingsForm.invalid"
+        color="primary"
+        >Opslaan</button>
+      <mat-hint>{{message}}</mat-hint>
+    </div>
+  </form>
 
 
   <mat-card class="storing-list-container">
