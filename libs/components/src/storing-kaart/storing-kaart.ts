@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   ViewEncapsulation,
   inject,
   signal,
@@ -55,6 +56,7 @@ export class StoringKaart {
   
   constructor() {
     this.nsApiService.nsStationsLijstSubject.subscribe((selectedStation: Station) => this.onStationSelected(selectedStation))
+    effect(() => this.selectedStation().naam.length > 0 ? this.storingsForm.enable() : this.storingsForm.disable() )
   }
 
   onStationSelected(selectedStation: Station){
