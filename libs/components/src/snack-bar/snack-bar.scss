@@ -1,0 +1,22 @@
+@use './variables' as *;
+
+:host {
+  display: block;
+}
+
+.container {
+  background-color: hsl(204, 52%, 59%) !important;
+  border: 1px solid hsl(240, 28%, 53%);
+  border-radius: 2rem;
+  box-shadow: 5px 5px 15px #ccc !important;
+  display: flex;
+  justify-content: center;
+  height: 75px;
+  padding: 1rem;
+  width: 450px;
+  
+  & .message {
+    color: white;
+  }
+
+}

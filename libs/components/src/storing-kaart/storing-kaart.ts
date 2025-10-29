@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { Station, StationsStoring } from '../../../models';
 import { NsApiService } from '../../../api';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NSSnackBar } from '../../';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators,  } from '@angular/forms';
 
 @Component({
@@ -53,10 +54,10 @@ export class StoringKaart {
   })
 
   private matSnackBar = inject(MatSnackBar)
-  
+
   constructor() {
     this.nsApiService.nsStationsLijstSubject.subscribe((selectedStation: Station) => this.onStationSelected(selectedStation))
-    effect(() => this.selectedStation().naam.length > 0 ? this.storingsForm.enable() : this.storingsForm.disable() )
+      effect(() => this.selectedStation().naam.length > 0 ? this.storingsForm.enable() : this.storingsForm.disable() )
   }
 
   onStationSelected(selectedStation: Station){
@@ -86,14 +87,23 @@ export class StoringKaart {
       }
     }
 
-    this.matSnackBar.open(`De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`,
-      '',
-      {
-        duration: 4000
-      }
-    )
+  //   this.matSnackBar.open(`De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`,
+  //   'OK',
+  //   {
+  //     duration: 4000,
+  //     panelClass: 'ns-snack-bar'
+  //   }
+  // );
+    this.matSnackBar.openFromComponent(NSSnackBar,
+    {
+      data: {
+        message: `De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`
+      },
+      duration: 400000,
+    }
+  );
   
-    this.leegInputVelden();
+  this.leegInputVelden();
   }
 
   protected trackBycdCode(station: StationsStoring): number {
