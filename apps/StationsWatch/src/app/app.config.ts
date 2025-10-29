@@ -8,6 +8,7 @@ import { appRoutes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { NS_STATIONS_ENDPOINT, OCP_APIM_SUBSCRIPTION_KEY } from './environments/.environment';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,5 +25,5 @@ export const appConfig: ApplicationConfig = {
       useValue: OCP_APIM_SUBSCRIPTION_KEY,
     },
     provideNativeDateAdapter()
-  ],
+  ]
 };
