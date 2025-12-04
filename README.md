@@ -23,7 +23,7 @@ De applicatie is opgebouwd uit 2 componenten en 1 service:
 
 - apps.html is de parent die zowel de stationsList als de storingKaart componenten vertoont en communicatie tuseen deze 2 via @Input en @Output attributen.
 
-- Ik heb gebruik gemaakt van Angular Material componenten e3nSASSS voor de styling
+- Ik heb gebruik gemaakt van Angular Material componenten en CSS / SASS voor de styling
 
 - Signals zijn gebruikt voor de response van de ns API. Daarmee voorkom je gebruik van ```onChange``` methode om de (asynchrone) input te initialiseren
 
