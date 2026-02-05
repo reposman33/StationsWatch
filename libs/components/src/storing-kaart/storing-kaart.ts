@@ -87,19 +87,12 @@ export class StoringKaart {
       }
     }
 
-  //   this.matSnackBar.open(`De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`,
-  //   'OK',
-  //   {
-  //     duration: 4000,
-  //     panelClass: 'ns-snack-bar'
-  //   }
-  // );
     this.matSnackBar.openFromComponent(NSSnackBar,
     {
       data: {
         message: `De storing op station ${this.selectedStation().naam} is ${this.isNieuweStoring ? 'geregistreerd' : 'gewijzigd'}`
       },
-      duration: 400000,
+      duration: 5000,verticalPosition: 'top'
     }
   );
   
