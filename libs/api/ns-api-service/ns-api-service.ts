@@ -4,7 +4,7 @@ import {
   NS_STATIONS_ENDPOINT,
   OCP_APIM_SUBSCRIPTION_KEY,
 } from '../../../apps/StationsWatch/src/app/environments/.environment';
-import { Station, StationData, StationUitgebreid } from '../..//models';
+import { Station, StationData, StationUitgebreid } from '../../models';
 import { map, Observable, Subject } from 'rxjs';
 import { Landcode } from '../../models';
 
