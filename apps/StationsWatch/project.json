@@ -55,7 +55,8 @@
       },
       "configurations": {
         "production": {
-          "buildTarget": "StationsWatch:build:production"
+          "buildTarget": "StationsWatch:build:production",
+          "proxyConfig": "./proxy.conf.json"
         },
         "development": {
           "buildTarget": "StationsWatch:build:development",
