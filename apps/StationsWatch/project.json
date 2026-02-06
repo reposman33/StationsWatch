@@ -1,0 +1,96 @@
+{
+  "name": "StationsWatch",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ns",
+  "sourceRoot": "/apps/StationsWatch/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/StationsWatch",
+        "browser": "/apps/StationsWatch/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "/apps/StationsWatch/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "/apps/StationsWatch/public"
+          }
+        ],
+        "styles": ["apps/StationsWatch/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4200
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "StationsWatch:build:production",
+          "proxyConfig": "./proxy.conf.json"
+        },
+        "development": {
+          "buildTarget": "StationsWatch:build:development",
+          "proxyConfig": "./proxy.conf.json"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "StationsWatch:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/StationsWatch/jest.config.ts",
+        "tsConfig": "apps/StationsWatch/tsconfig.spec.json"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "StationsWatch:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/StationsWatch/browser",
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@use './variables' as *;
+
+:host {
+  display: block;
+}
+
+.container {
+  background-color: #d5dfea;
+  border: #ccc 1px solid;
+  border-radius: $left-border-radius;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  width: 100%;
+}
+
+.alphabet-nav {
+  background-color: $alphabet-nav-bg-color;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: $left-border-radius;
+
+  & button {
+    min-width: 32px;
+    height: 27px;
+    padding: 1px;
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+.stations-list {
+  background-color: $names-list-bg-color;
+  flex-grow: 1;
+  height: 100%;
+  width: max-content;
+  border: 1px solid #ccc;
+
+  & .mdc-list-item {
+    
+    &.mdc-list-item--with-one-line {
+      height: 28px;
+
+      &.selectedLine {
+        background-color: $station-list-item-selected-bg-color;
+      }
+    }
+    &:nth-child(odd) {
+      background-color: #e8f0f7;
+    }
+  }
+}
+

@@ -1,0 +1,138 @@
+@use './variables' as *;
+@use 'sass:color';
+
+:host {
+  display: block;
+}
+
+.storing-card {
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  border-radius: $storing-card-right-border-radius;
+
+  .storing-titel {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    padding: 1rem;
+
+    & input {
+      border-radius: $storing-input-border-radius;
+      height: 2rem;
+      font-size: x-large;
+    }
+  }
+
+  .input-container {
+    margin: 0 1rem;
+    display: flex;
+    gap: 3%;
+   
+    .input-container-left {
+      background-color: color.adjust($storing-card-bg-color, $lightness: -5%);
+      border: $storing-card-border;
+      border-radius: $storing-card-border-radius;
+      display: flex;
+      flex-direction: column;
+      padding: .5rem .5rem 1rem;
+      width: 50%;
+
+      & .row {
+        align-items: center;
+        display: flex;
+        margin-top: -9px;
+      }
+
+      & input {
+        border-radius: $storing-input-border-radius;
+        width: 50%
+      }
+
+      & .storing-type-group {
+        border: $storing-card-border;
+        border-radius: $storing-input-border-radius;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        // margin-top: -0.5rem;
+        padding: 1rem;
+
+        & mat-radio-button {
+          height: 25px;
+        }
+      }      
+    }
+
+    .input-container-right {
+      background-color: color.adjust($storing-card-bg-color, $lightness: -5%);
+      border: $storing-card-border;
+      border-radius: $storing-card-border-radius;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;;
+      width: 50%;
+
+      & .storing-beschrijving {
+        border: $storing-card-border;
+        border-radius: $storing-card-border-radius;
+        height: 850%;
+        padding: 1rem;
+        width: 89%;
+      }
+    }
+  }
+
+  .button-opslaan-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 2rem 0.5rem;
+    align-items: center;
+    
+    & button {
+      width: 33%;
+      align-self: flex-end;
+    }
+  }
+
+  .storing-list-container {
+    background-color: color.adjust($storing-card-bg-color, $lightness: -5%);
+    border: $storing-card-border;
+    border-radius: $storing-card-border-radius;
+    display: flex;
+    flex-direction: column;
+    height: 33%;
+    margin: 0 2rem;
+    padding: 01rem;
+  }
+}
+
+.storing-list {
+  background-color: $storingen-list-bg-color;
+  border-radius: $storing-card-border-radius;
+  flex-grow: 1;
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+
+  & .mdc-list-item {
+    
+    &.mdc-list-item--with-one-line {
+      height: 28px;
+
+      &.selectedLine {
+        background-color: $storingen-list-item-selected-bg-color;
+      }
+    }
+    &:nth-child(odd) {
+      background-color: #e8f0f7;
+    }
+  }
+}
+
+mat-label {
+  color: rgb(99, 138, 200);
+  font-size: larger;
+  font-weight: bold;
+  margin-left: 1rem;
+}

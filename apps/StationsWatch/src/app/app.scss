@@ -1,0 +1,42 @@
+@use '../variables' as *;
+
+.horizontal-container {
+  background-color: #d1d5db;
+  border: $container-border;
+  border-radius: 2rem;
+  display: flex;
+  margin: 3rem;
+  padding: 3rem;
+  box-shadow: $container-box-shadow;
+  width: 1150px;
+
+  & .list {
+    border-radius: $card-left-border-radius;
+    flex: 0 0 29%;
+    background-color: $card-background-color;
+    box-shadow: $card-box-shadow;
+    height: fit-content;
+  }
+  
+  & .card {
+    flex: 0 0 67%;
+    border: $card-border;
+    border-radius: $card-right-border-radius;
+    background-color: $card-background-color;
+    height: fit-content;
+    margin-left: 2rem;
+    box-shadow: $card-box-shadow;
+  }
+  
+  & .ns-logo {
+    background-color: $ns-logo-bg-color;
+    border-radius: 50px;
+    height: 51px;
+    left: 53px;
+    padding: 0.3rem;
+    position: absolute;
+    top:53px;
+    width: 51px;
+  }
+
+}

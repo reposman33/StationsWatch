@@ -1,0 +1,85 @@
+<mat-card class="storing-card">
+  
+  <mat-card-header>
+    <mat-card-title>
+      Station storing
+      @if(selectedStation().naam.length) {
+        in {{selectedStation().naam}}
+      }
+      @if(!isNieuweStoring && selectedLineIndex > -1 ) {
+        <span> MUTATIE</span>
+      }
+    </mat-card-title>
+  </mat-card-header>
+
+
+  <form [formGroup]="storingsForm" (ngSubmit)="opslaanStation()">
+    <div class="storing-titel">
+      <mat-label>Titel</mat-label>
+      <input
+        matInput
+        formControlName="titel">
+    </div>
+    <mat-card-content>
+      <div class="input-container">
+    
+        <div class="input-container-left">
+          <mat-label>Datum</mat-label>
+          <div class="row">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="datum">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <mat-label>Type storing</mat-label>
+          <mat-radio-group
+            class="storing-type-group"
+            formControlName="type">
+            <mat-radio-button value="Storing">Storing</mat-radio-button>
+            <mat-radio-button value="Informatie">Informatie</mat-radio-button>
+            <mat-radio-button value="Service">Service</mat-radio-button>
+          </mat-radio-group>
+        </div>
+    
+        <div class="input-container-right">
+          <mat-label>Beschrijving</mat-label>
+          <textarea
+            matInput
+            class="storing-beschrijving"
+            formControlName="beschrijving"></textarea>
+        </div>
+      </div>
+    
+    </mat-card-content>
+    
+    <div class="button-opslaan-container">
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="storingsForm.invalid"
+        color="primary"
+        >Opslaan</button>
+      <mat-hint>{{message}}</mat-hint>
+    </div>
+  </form>
+
+
+  <mat-card class="storing-list-container">
+    <mat-label>Station storingen</mat-label>
+    
+    <mat-list class="storing-list">
+    
+      @for(stationStoring of stationsStoringen; let i = $index; track trackBycdCode(stationStoring)) {
+        <mat-list-item
+          [ngClass]="{ 'selectedLine': selectedLineIndex === i }"
+          (click)="toonGeselecteerdStation(i)">
+            {{stationStoring.station.naam}}
+          </mat-list-item>
+      }
+    
+    </mat-list>
+  </mat-card>
+  
+</mat-card>

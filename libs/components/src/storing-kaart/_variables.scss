@@ -1,0 +1,14 @@
+@use 'sass:color';
+$storing-card-left-border-radius: 2rem 0 0 2rem;
+$storing-card-right-border-radius: 0 2rem 2rem 0;
+$storing-card-border-radius: 2rem;
+$storing-card-bg-color: #f3f4f6;
+$storing-card-border-color: #a6aab7;
+$storing-card-border: 1px solid $storing-card-border-color;
+$storing-card-border-radius: 2rem;
+$storing-input-border-radius: .3rem;
+$storingen-list-bg-color: #cadcf0;
+$storingen-list-text-color: #ddd;
+$storingen-list-item-selected-bg-color: color.adjust($storingen-list-bg-color, $lightness: -20%);
+$storingen-list-item-selected-text-color: color.adjust($storingen-list-text-color, $lightness: 20%);
+
