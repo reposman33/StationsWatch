@@ -40,4 +40,4 @@ De applicatie is opgebouwd uit 2 componenten en 1 service:
 
 of met
 
-```npx nx run StationsWatch:serve --configaration=development```
+```npx nx run StationsWatch:serve```
